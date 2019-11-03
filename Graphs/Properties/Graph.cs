@@ -9,23 +9,16 @@ namespace Graphs
         private Vertex<T>[] vertexList;
         //private Edge<T>[] edgeList;
         private int MaxVerts;
-        private LinkedList<int>[] adjList; //сделай тут кортеж. Первое число - номер, второе - вес. Вершина сама с собой - вес 0. 
-
-        /*public Graph(int MAX_VERTS)
-        {
-            vertexList = new Vertex<T>[MAX_VERTS]; // мб использовать коллекцию?
-            adjList = new int[MAX_VERTS,MAX_VERTS]; // и тут коллекцию, где будут лежать массивы
-            NumberOfVertices = 0;
-            stack = new Stack<int>();
-        }*/
+        //Параметризовал элементы adjList кортежем, где первое число - номер, второе - вес. Вершина сама с собой - вес 0. 
+        private LinkedList<Tuple<int, int>>[] adjList;
 
         public Graph(int n)
         {
             vertexList = new Vertex<T>[n];
-            adjList = new LinkedList<int>[n];
+            adjList = new LinkedList<Tuple<int, int>>[n];
             for (int i = 0; i < adjList.Length; i++)
             {
-                adjList[i] = new LinkedList<int>();
+                adjList[i] = new LinkedList<Tuple<int, int>>();
             }
             NumberOfVertices = 0;
             MaxVerts = n;
@@ -34,10 +27,10 @@ namespace Graphs
         public Graph(int n, bool weighted)
         {
             vertexList = new Vertex<T>[n];
-            adjList = new LinkedList<int>[n];
+            adjList = new LinkedList<Tuple<int, int>>[n];
             for (int i = 0; i < adjList.Length; i++)
             {
-                adjList[i] = new LinkedList<int>();
+                adjList[i] = new LinkedList<Tuple<int, int>>();
             }
             NumberOfVertices = 0;
             MaxVerts = n;
@@ -55,12 +48,12 @@ namespace Graphs
 
         public virtual void AddEdge(int start, int end) 
         {
-            adjList[start].AddLast(end);
+            adjList[start].AddLast(Tuple.Create(end, 0));
         }
         
         public virtual void AddEdge(int start, int end, int weight) //с верхним методом сделйа так, чтобы в кортеже второе число было ноль, а тут weight
         {
-            adjList[start].AddLast(end);
+            adjList[start].AddLast(Tuple.Create(end, weight));
         }
 
         public virtual void DisplayGraph()
@@ -146,7 +139,7 @@ namespace Graphs
             s = queue.Dequeue();
             DisplayVertex(s);
 
-            IEnumerator<int> ie = adjList[s].GetEnumerator(); //нельзя менять коллекцию после создания перечислителя
+            IEnumerator<Tuple<int, int>> ie = adjList[s].GetEnumerator(); //нельзя менять коллекцию после создания перечислителя
             for (int i = 0; i < adjList.Length; i++)
             {
                 while (ie.MoveNext())
@@ -176,7 +169,7 @@ namespace Graphs
         {
             int[,] graph = new int[vertexList.Length, vertexList.Length];
             
-            foreach (LinkedList<int> element in adjList) //если связи между вершинами нет, то вес = 0
+            foreach (LinkedList<Tuple<int, int>> element in adjList) //если связи между вершинами нет, то вес = 0
             {
                 for (int i = 0; i < element.Count; i++)
                 {
