@@ -116,10 +116,10 @@ namespace Graphs
 
         protected virtual int GetIndexOfUnvisitedVertex(int v)
         {
-            
-                for (int i = 0; i < NumberOfVertices; i++)
+
+            for (int i = 0; i < NumberOfVertices; i++)
                 {
-                    if (adjList[v].Contains(i) && vertexList[i].Visited == false)
+                    if (adjList[v].Contains(Tuple.Create(i, 0)) && vertexList[i].Visited == false) //вес ставлю 0, тк граф не взвешанный в данном случае
                     {
                         return i;
                     }
@@ -144,11 +144,11 @@ namespace Graphs
             {
                 while (ie.MoveNext())
                 {
-                    int n = ie.Current;
-                    if (!vertexList[n].Visited)
+                    var (counter, weight) = ie.Current;
+                    if (!vertexList[counter].Visited)
                     {
-                        vertexList[n].Visited = true;
-                        queue.Enqueue(n);
+                        vertexList[counter].Visited = true;
+                        queue.Enqueue(counter);
                     }
                     //ie.MoveNext();
                 }
@@ -173,7 +173,7 @@ namespace Graphs
             {
                 for (int i = 0; i < element.Count; i++)
                 {
-                    if (element.Contains(i))
+                    //if (element.Contains(i))
                     {
                         //graph[element,i] = weight //как задать тут вес?? 
                     }
