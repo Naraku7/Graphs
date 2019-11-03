@@ -10,6 +10,7 @@ namespace Graphs
         //private Edge<T>[] edgeList;
         private int MaxVerts;
         private LinkedList<int>[] adjList; //сделай тут кортеж. Первое число - номер, второе - вес. Вершина сама с собой - вес 0. 
+        private int test;
 
         /*public Graph(int MAX_VERTS)
         {
