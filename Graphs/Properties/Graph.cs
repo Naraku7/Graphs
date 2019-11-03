@@ -10,15 +10,15 @@ namespace Graphs
         //private Edge<T>[] edgeList;
         private int MaxVerts;
         //Параметризовал элементы adjList кортежем, где первое число - номер, второе - вес. Вершина сама с собой - вес 0. 
-        private LinkedList<Tuple<int, int>>[] adjList;
+        private List<Tuple<int, int>>[] adjList;
 
         public Graph(int n)
         {
             vertexList = new Vertex<T>[n];
-            adjList = new LinkedList<Tuple<int, int>>[n];
+            adjList = new List<Tuple<int, int>>[n];
             for (int i = 0; i < adjList.Length; i++)
             {
-                adjList[i] = new LinkedList<Tuple<int, int>>();
+                adjList[i] = new List<Tuple<int, int>>();
             }
             NumberOfVertices = 0;
             MaxVerts = n;
@@ -27,10 +27,10 @@ namespace Graphs
         public Graph(int n, bool weighted)
         {
             vertexList = new Vertex<T>[n];
-            adjList = new LinkedList<Tuple<int, int>>[n];
+            adjList = new List<Tuple<int, int>>[n];
             for (int i = 0; i < adjList.Length; i++)
             {
-                adjList[i] = new LinkedList<Tuple<int, int>>();
+                adjList[i] = new List<Tuple<int, int>>();
             }
             NumberOfVertices = 0;
             MaxVerts = n;
@@ -48,12 +48,22 @@ namespace Graphs
 
         public virtual void AddEdge(int start, int end) 
         {
-            adjList[start].AddLast(Tuple.Create(end, 0));
+            adjList[start].Add(Tuple.Create(end, 0));
         }
         
-        public virtual void AddEdge(int start, int end, int weight) //с верхним методом сделйа так, чтобы в кортеже второе число было ноль, а тут weight
+        public virtual void AddEdge(int start, int end, int weight) //с верхним методом сделай так, чтобы в кортеже второе число было ноль, а тут weight
         {
-            adjList[start].AddLast(Tuple.Create(end, weight));
+            adjList[start].Add(Tuple.Create(end, weight));
+        }
+
+        public virtual void DeleteVertex(int number)
+        {
+            //vertexList[number].
+        }
+
+        public virtual void DeleteEdge(int start, int end)
+        {
+            adjList[start].RemoveAt(end);
         }
 
         public virtual void DisplayGraph()
@@ -169,7 +179,7 @@ namespace Graphs
         {
             int[,] graph = new int[vertexList.Length, vertexList.Length];
             
-            foreach (LinkedList<Tuple<int, int>> element in adjList) //если связи между вершинами нет, то вес = 0
+            foreach (List<Tuple<int, int>> element in adjList) //если связи между вершинами нет, то вес = 0
             {
                 for (int i = 0; i < element.Count; i++)
                 {
