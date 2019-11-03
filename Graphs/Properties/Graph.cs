@@ -6,7 +6,7 @@ namespace Graphs
 {
     public class Graph<T>
     {
-        private Vertex<T>[] vertexList;
+        private List<Vertex<T>> vertexList;
         //private Edge<T>[] edgeList;
         private int MaxVerts;
         //Параметризовал элементы adjList кортежем, где первое число - номер, второе - вес. Вершина сама с собой - вес 0. 
@@ -14,7 +14,7 @@ namespace Graphs
 
         public Graph(int n)
         {
-            vertexList = new Vertex<T>[n];
+            vertexList = new List<Vertex<T>>();
             adjList = new List<Tuple<int, int>>[n];
             for (int i = 0; i < adjList.Length; i++)
             {
@@ -26,7 +26,7 @@ namespace Graphs
         
         public Graph(int n, bool weighted)
         {
-            vertexList = new Vertex<T>[n];
+            vertexList = new List<Vertex<T>>();
             adjList = new List<Tuple<int, int>>[n];
             for (int i = 0; i < adjList.Length; i++)
             {
@@ -58,7 +58,7 @@ namespace Graphs
 
         public virtual void DeleteVertex(int number)
         {
-            //vertexList[number].
+            vertexList.RemoveAt(number);
         }
 
         public virtual void DeleteEdge(int start, int end)
@@ -68,7 +68,7 @@ namespace Graphs
 
         public virtual void DisplayGraph()
         {
-            for (int v = 0; v < vertexList.Length; v++)
+            for (int v = 0; v < vertexList.Count; v++)
             {
                 DisplayVertex(v);
             }
@@ -177,7 +177,7 @@ namespace Graphs
 
         public void Dijkstra() //подумай про параметры. Как именно указать source
         {
-            int[,] graph = new int[vertexList.Length, vertexList.Length];
+            int[,] graph = new int[vertexList.Count, vertexList.Count];
             
             foreach (List<Tuple<int, int>> element in adjList) //если связи между вершинами нет, то вес = 0
             {
