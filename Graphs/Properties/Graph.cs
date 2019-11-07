@@ -23,35 +23,19 @@ namespace Graphs
             NumberOfVertices = 0;
             MaxVerts = n;
         }
-        
-        public Graph(int n, bool weighted)
-        {
-            vertexList = new List<Vertex<T>>();
-            adjList = new List<Tuple<int, int>>[n];
-            for (int i = 0; i < adjList.Length; i++)
-            {
-                adjList[i] = new List<Tuple<int, int>>();
-            }
-            NumberOfVertices = 0;
-            MaxVerts = n;
-
-            if (weighted)
-            {
-                
-            }
-        }
 
         public virtual void AddVertex(T data)
         {
-            vertexList[NumberOfVertices++] = new Vertex<T>(data);
+            vertexList.Insert(NumberOfVertices++, new Vertex<T>(data));
         }
 
         public virtual void AddEdge(int start, int end) 
         {
-            adjList[start].Add(Tuple.Create(end, 0));
+            //Если граф не взвешенный, то ставим вес = 0
+            adjList[start].Add(Tuple.Create(end, 0)); 
         }
         
-        public virtual void AddEdge(int start, int end, int weight) //с верхним методом сделай так, чтобы в кортеже второе число было ноль, а тут weight
+        public virtual void AddEdge(int start, int end, int weight) 
         {
             adjList[start].Add(Tuple.Create(end, weight));
         }

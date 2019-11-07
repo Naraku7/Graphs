@@ -65,6 +65,20 @@ namespace Graphs
             Console.WriteLine("g4 BFS");
             g4.BFS(2); 
             
+            Graph<char> g5 = new Graph<char>(5); 
+            g4.AddVertex('a'); //0
+            g4.AddVertex('b'); //1
+            g4.AddVertex('c'); //2
+            g4.AddVertex('d'); //3
+            g4.AddEdge(0, 1, 2); 
+            g4.AddEdge(0, 2, 5); 
+            g4.AddEdge(1, 2); 
+            g4.AddEdge(2, 0); 
+            g4.AddEdge(2, 3);
+            g4.AddEdge(3, 3); 
+            Console.WriteLine("g5 BFS");
+            g4.BFS(2); 
+            
         }
     }
 }
