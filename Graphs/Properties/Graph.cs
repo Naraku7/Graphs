@@ -7,8 +7,10 @@ namespace Graphs
     public class Graph<T>
     {
         private List<Vertex<T>> vertexList;
-        //private Edge<T>[] edgeList;
+        public int NumberOfVertices { get; set; }
+        public int NumberOfEdges { get; set; }
         private int MaxVerts;
+        //adjList - массив списков
         //Параметризовал элементы adjList кортежем, где первое число - номер, второе - вес. Вершина сама с собой - вес 0. 
         private List<Tuple<int, int>>[] adjList;
 
@@ -29,6 +31,9 @@ namespace Graphs
             vertexList.Insert(NumberOfVertices++, new Vertex<T>(data));
         }
 
+        //Добавление происходит как для ориентированного графа
+        //Если граф не ориентированный, нужно отдельно применить метод AddEdge, поменяв первые 2 индекса местами
+        
         public virtual void AddEdge(int start, int end) 
         {
             //Если граф не взвешенный, то ставим вес = 0
@@ -52,7 +57,7 @@ namespace Graphs
 
         public virtual void DisplayGraph()
         {
-            for (int v = 0; v < vertexList.Count; v++)
+            for (int v = 0; v < NumberOfVertices; v++) //было vertexList.Count
             {
                 DisplayVertex(v);
             }
@@ -67,14 +72,6 @@ namespace Graphs
         public virtual T GetData(int v)
         {
             return vertexList[v].Data;
-        }
-        
-        public int NumberOfVertices { get; set; }
-        
-        public int NumberOfEdges
-        {
-            get;
-            set;
         }
 
         public void DFS(int s) //параметр указывает, с какой вершины начинаем
@@ -159,20 +156,45 @@ namespace Graphs
         }
         }
 
-        public void Dijkstra() //подумай про параметры. Как именно указать source
+        public void Dijkstra(int source) //подумай про параметры. Как именно указать source
         {
-            int[,] graph = new int[vertexList.Count, vertexList.Count];
-            
-            foreach (List<Tuple<int, int>> element in adjList) //если связи между вершинами нет, то вес = 0
+
+            bool[] sptSet = new bool[NumberOfVertices]; // Массив, где содержится информация, нашли ли мы минимальный путь до этой вершины
+            //int[,] graph = new int[vertexList.Count, vertexList.Count]; //тут описываются связи между вершинами графа
+            int[] dist = new int[NumberOfVertices];
+
+            for (int i = 0; i < NumberOfVertices; i++)
             {
-                for (int i = 0; i < element.Count; i++)
+                dist[i] = Int32.MaxValue;
+            }
+
+            dist[source] = 0;
+
+            for (int u = 0; u < NumberOfVertices; u++)
+            {
+                if (!sptSet[u])
                 {
-                    //if (element.Contains(i))
-                    {
-                        //graph[element,i] = weight //как задать тут вес?? 
-                    }
+
                 }
-            } 
+            }
+        }
+
+        //Этот метод возвращает индекс вершины, до которой не найдено минимальный путь из возможных
+        private int MinDistance(int[] dist, bool[] sptSet)
+        {
+            int min = Int32.MaxValue;
+            int minIndex = -1;
+            
+            for (int u = 0; u < NumberOfVertices; u++)
+            {
+                if (sptSet[u] == false && dist[u] <= min)
+                {
+                    min = dist[u];
+                    minIndex = u;
+                }
+            }
+
+            return minIndex;
         }
 
         /*public void Dijkstra(int [,] graph, int source)
