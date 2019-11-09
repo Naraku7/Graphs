@@ -161,7 +161,7 @@ namespace Graphs
 
             bool[] sptSet = new bool[NumberOfVertices]; // Массив, где содержится информация, нашли ли мы минимальный путь до этой вершины
             //int[,] graph = new int[vertexList.Count, vertexList.Count]; //тут описываются связи между вершинами графа
-            int[] dist = new int[NumberOfVertices];
+            int[] dist = new int[NumberOfVertices]; // Массив расстояний до вершины от source
 
             for (int i = 0; i < NumberOfVertices; i++)
             {
@@ -170,13 +170,21 @@ namespace Graphs
 
             dist[source] = 0;
 
-            for (int u = 0; u < NumberOfVertices; u++)
+            for (int count = 0; count < NumberOfVertices; count++) //NumberOfVertices - 1 ??
             {
-                if (!sptSet[u])
-                {
 
-                }
+                int u = MinDistance(dist, sptSet);
+                
+                    sptSet[u] = true;
+                    
+                    foreach (Tuple<int, int> element in adjList[u])
+                    {
+                        if (!sptSet[element.Item1] && dist[u] != Int32.MaxValue && dist[u] + element.Item2 < dist[element.Item1])
+                            dist[element.Item1] = dist[count] + element.Item2;
+                    }
             }
+            
+            PrintDijkstra(dist);
         }
 
         //Этот метод возвращает индекс вершины, до которой не найдено минимальный путь из возможных
@@ -195,6 +203,14 @@ namespace Graphs
             }
 
             return minIndex;
+        }
+
+        private void PrintDijkstra(int[] dist)
+        {
+            Console.Write("Vertex \t\t Distance from Source\n"); 
+            
+            for (int i = 0; i < NumberOfVertices; i++) 
+                Console.Write(i + " \t\t " + dist[i] + "\n"); 
         }
 
         /*public void Dijkstra(int [,] graph, int source)
