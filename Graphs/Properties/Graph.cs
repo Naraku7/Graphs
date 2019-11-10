@@ -38,11 +38,15 @@ namespace Graphs
         {
             //Если граф не взвешенный, то ставим вес = 0
             adjList[start].Add(Tuple.Create(end, 0)); 
+            adjList[end].Add(Tuple.Create(start, 0)); 
         }
         
-        public virtual void AddEdge(int start, int end, int weight) 
+        public virtual void AddEdge(int start, int end, int weight)
         {
+            if (weight < 0) throw new ArgumentException();
+
             adjList[start].Add(Tuple.Create(end, weight));
+            adjList[end].Add(Tuple.Create(start, weight));
         }
 
         public virtual void DeleteVertex(int number)
@@ -212,62 +216,5 @@ namespace Graphs
             for (int i = 0; i < NumberOfVertices; i++) 
                 Console.Write(i + " \t\t " + dist[i] + "\n"); 
         }
-
-        /*public void Dijkstra(int [,] graph, int source)
-        {
-            int[] dist = new int [graph.Length]; //элементы содержат кратчайший путь из начала в вершину
-            
-            
-            // sptSet[i] will true if vertex i is included in shortest path 
-            // tree or shortest distance from 
-            // src to i is finalized  
-            bool[] sptSet = new bool[graph.Length];
-
-            for (int i = 0; i < graph.Length; i++)
-            {
-                dist[i] = Int32.MaxValue;
-            }
-
-            dist[source] = 0;
-
-            for (int i = 0; i < graph.Length; i++) // до Length - 1 ??
-            {
-                int u = MinDistance(dist, sptSet);
-                sptSet[u] = true;
-
-                for (int v = 0; v < graph.Length; v++)
-                {
-                    if (!sptSet[u] && graph[u, v] != 0 && dist[u] != Int32.MaxValue && dist[u] + graph[u, v] < dist[v])
-                    {
-                        dist[v] = dist[u] + graph[u, v];
-                    }
-                }
-                PrintSolution(dist);
-            }
-
-        }
-
-        private int MinDistance(int[] dist, bool[] sptSet)
-        {
-            int min = Int32.MaxValue, minIndex = -1;
-
-            for (int v = 0; v < sptSet.Length; v++) //sptSet.Length == graph.Length
-            {
-                if (sptSet[v] == false && dist[v] <= min)
-                {
-                    min = dist[v];
-                    minIndex = v;
-                }
-            }
-            return minIndex;
-        }
-
-        private void PrintSolution(int[] dist)
-        { 
-            Console.Write("Vertex \t\t Distance "
-                          + "from Source\n"); 
-            for (int i = 0; i < dist.Length; i++) 
-                Console.Write(i + " \t\t " + dist[i] + "\n"); 
-        } */
     }
 }
