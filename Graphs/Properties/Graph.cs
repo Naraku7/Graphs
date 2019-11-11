@@ -160,11 +160,10 @@ namespace Graphs
         }
         }
 
-        public void Dijkstra(int source) //подумай про параметры. Как именно указать source
+        public void Dijkstra(int source) 
         {
 
             bool[] sptSet = new bool[NumberOfVertices]; // Массив, где содержится информация, нашли ли мы минимальный путь до этой вершины
-            //int[,] graph = new int[vertexList.Count, vertexList.Count]; //тут описываются связи между вершинами графа
             int[] dist = new int[NumberOfVertices]; // Массив расстояний до вершины от source
 
             for (int i = 0; i < NumberOfVertices; i++)
@@ -184,7 +183,8 @@ namespace Graphs
                     foreach (Tuple<int, int> element in adjList[u])
                     {
                         if (!sptSet[element.Item1] && dist[u] != Int32.MaxValue && dist[u] + element.Item2 < dist[element.Item1])
-                            dist[element.Item1] = dist[count] + element.Item2;
+                            
+                            dist[element.Item1] = dist[u] + element.Item2;
                     }
             }
             

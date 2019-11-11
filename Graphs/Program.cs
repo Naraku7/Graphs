@@ -45,7 +45,6 @@ namespace Graphs
             g3.AddEdge(0, 1); 
             g3.AddEdge(0, 2); 
             g3.AddEdge(1, 2); 
-            g3.AddEdge(2, 0); 
             g3.AddEdge(2, 3);
             g3.AddEdge(3, 3); 
             Console.WriteLine("g3 BFS");
@@ -65,17 +64,23 @@ namespace Graphs
             Console.WriteLine("g4 BFS");
             g4.BFS(2); */
             
-            Graph<char> g5 = new Graph<char>(5); 
+            Graph<char> g5 = new Graph<char>(6); 
             g5.AddVertex('a'); //0
             g5.AddVertex('b'); //1
             g5.AddVertex('c'); //2
             g5.AddVertex('d'); //3
+            g5.AddVertex('e'); //4
+            g5.AddVertex('f'); //5
             g5.AddEdge(0, 1, 2); 
             g5.AddEdge(0, 2, 5); 
             g5.AddEdge(1, 2, 9);
             g5.AddEdge(2, 3, 3);
+            g5.AddEdge(3, 4, 2);
+            g5.AddEdge(4, 5, 3);
+            g5.AddEdge(0, 4, 4);
+            g5.AddEdge(0, 5, 10);
             Console.WriteLine("g5 Dijkstra");
-            g5.Dijkstra(0); 
+            g5.Dijkstra(1); 
             
         }
     }

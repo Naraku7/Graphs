@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 namespace Graphs
 {
@@ -9,7 +9,6 @@ namespace Graphs
         public int Weight { get; set; }
 
         /*public Edge(Vertex<T> node1, Vertex<T> node2) : this (node1, node2, 0) {}
-
         public Edge(Vertex<T> node1, Vertex<T> node2, int weight)
         {
             this.node1 = node1;
