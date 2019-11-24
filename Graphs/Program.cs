@@ -71,14 +71,33 @@ namespace Graphs
             g5.AddVertex('d'); //3
             g5.AddVertex('e'); //4
             g5.AddVertex('f'); //5
+            
             g5.AddEdge(0, 1, 2); 
+            g5.AddEdge(1, -0, 2); 
+            
             g5.AddEdge(0, 2, 5); 
+            g5.AddEdge(2, 0, 5); 
+            
+            
             g5.AddEdge(1, 2, 9);
+            g5.AddEdge(2, 1, 9);
+            
             g5.AddEdge(2, 3, 3);
+            g5.AddEdge(3, 2, 3);
+            
+            
             g5.AddEdge(3, 4, 2);
+            g5.AddEdge(4, 3, 2);
+            
             g5.AddEdge(4, 5, 3);
+            g5.AddEdge(5, 4, 3);
+            
             g5.AddEdge(0, 4, 4);
+            g5.AddEdge(4, 0, 4);
+            
             g5.AddEdge(0, 5, 10);
+            g5.AddEdge(5, 0, 10);
+            
             Console.WriteLine("g5 Dijkstra");
             g5.Dijkstra(1); 
             

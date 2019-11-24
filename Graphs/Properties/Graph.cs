@@ -30,15 +30,11 @@ namespace Graphs
         {
             vertexList.Insert(NumberOfVertices++, new Vertex<T>(data));
         }
-
-        //Добавление происходит как для ориентированного графа
-        //Если граф не ориентированный, нужно отдельно применить метод AddEdge, поменяв первые 2 индекса местами
         
         public virtual void AddEdge(int start, int end) 
         {
             //Если граф не взвешенный, то ставим вес = 0
-            adjList[start].Add(Tuple.Create(end, 0)); 
-            adjList[end].Add(Tuple.Create(start, 0)); 
+            adjList[start].Add(Tuple.Create(end, 0));
         }
         
         public virtual void AddEdge(int start, int end, int weight)
@@ -46,7 +42,6 @@ namespace Graphs
             if (weight < 0) throw new ArgumentException();
 
             adjList[start].Add(Tuple.Create(end, weight));
-            adjList[end].Add(Tuple.Create(start, weight));
         }
 
         public virtual void DeleteVertex(int number)
@@ -61,7 +56,7 @@ namespace Graphs
 
         public virtual void DisplayGraph()
         {
-            for (int v = 0; v < NumberOfVertices; v++) //было vertexList.Count
+            for (int v = 0; v < NumberOfVertices; v++)
             {
                 DisplayVertex(v);
             }
